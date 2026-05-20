@@ -49,8 +49,39 @@ function InternFrom() {
 
   return (
     <div id='TopContainer'>
-      <div id='Navbar'>
-        <h1>INTERN ADDING FORM</h1>
+      <div id="Navbar">
+       <h1>INTERN ADDING INTERN</h1>
+       <nav className="navbar navbar-expand-lg ">
+  <div class="container-fluid">
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
       </div>
       <div className='FromContainer'>
         <form action="" onSubmit={HandleLogin}>
@@ -66,6 +97,7 @@ function InternFrom() {
           <label>Role:</label>
 <input name="role" type="text" placeholder='Enter role' className='InputConatiner' onChange={(text) => { setFormData({ ...FormData, [text.target.name]: text.target.value }) }} />
           <button type='submit' id='Btn1' onClick={HandleLogin} disabled={BUttonDisable}>Add Member</button>
+          
         </form>
 
       </div>

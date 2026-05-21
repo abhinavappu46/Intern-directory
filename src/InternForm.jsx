@@ -6,6 +6,7 @@ function InternFrom() {
   const [Id, setId] = useState(0);
   const [SendData, setSendData] = useState([])
   const [BUttonDisable, setButtonDisable] = useState(false)
+  const [Photo, setPhoto] = useState(null);
   const HandleLogin = (e) => {
     const alreadyExists = SendData.some(
       (student) => student.Email === FormData.Email
@@ -18,7 +19,7 @@ function InternFrom() {
       alert("Student already exists!");
 
     }
-    const NewData = ({ ...FormData, id: Id + 1, status: false });
+    const NewData = ({ ...FormData, id: Id + 1, status: false, userphoto: Photo });
 
     e.preventDefault();
     setSendData([...SendData, NewData]);
@@ -85,7 +86,10 @@ function InternFrom() {
       </div>
       <div className='FromContainer'>
         <form action="" onSubmit={HandleLogin}>
-
+          <div id='PhotoContainer'>
+            <img id="ImageContainer" alt='profile' src={Photo? URL.createObjectURL(Photo):""} />
+          </div>
+          <input type='file' className='ImageConatiner' accept='image/*' onChange={(e)=>setPhoto(e.target.files[0])}/>
           <label >FullName:&nbsp;</label>
           <input type='text' placeholder='enter the name' className='InputConatiner' name='FullName' onChange={(text) => { setFormData({ ...FormData, [text.target.name]: text.target.value }) }} />
           <label>Email:&nbsp;</label>

@@ -15,6 +15,9 @@ function StudentDetail({ SendData, DeleteIntern, HandleToggle }) {
 
                <div className='DetailCard' key={student.id}>
                   <h2> NO&nbsp;:&nbsp;{student.id}</h2>
+                  <center><div id='PhotoContainer'>
+                     <img id='ImageContainer' alt='profile' src={student.userphoto ? URL.createObjectURL(student.userphoto):""} />
+                  </div></center>
                   <p className='pg'>Name : {student.FullName}</p>
                   <p className='pg'>Email : {student.Email}</p>
                   <p className='pg'>Phone No : {student.phone}</p>

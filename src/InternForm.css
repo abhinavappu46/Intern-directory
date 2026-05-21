@@ -14,8 +14,8 @@
 
 }
 
-.navbar .nav-link,
-.navbar .navbar-brand {
+.navbar .nav-link
+ {
 
     color: #F1F5F9 !important;
     display: flex;
@@ -74,7 +74,7 @@ body {
     border: 1px solid rgba(0, 255, 198, 0.25);
     box-shadow: 0 0 50px rgba(0, 255, 198, 0.12);
     height: 60%;
-    min-height: 450px;
+    min-height: 600px;
     width: 90%;
     max-width: 400px;
     color: #D7EFFF;
@@ -84,7 +84,7 @@ body {
     margin: 50px auto;
     border-radius: 18px;
     padding: 10px;
-
+   
 }
 
 #TopContainer {
@@ -120,6 +120,7 @@ form {
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.06);
     color: #D7EFFF;
+
 }
 
 #Btn1 {
@@ -158,4 +159,27 @@ form {
     gap: 22px;
 
 
+}
+#PhotoContainer{
+    background-color: #E6F7FF !important;
+    color: #00FFD5;
+    border-radius: 50%;
+    height: 70px;
+justify-content: center;
+}
+#ImageContainer{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.ImageConatiner{
+     border-radius: 5px;
+    text-align: center;
+    height: 25px;
+    width: 60%;
+    max-width: 200px;
+    border-color: 1px solid rgba(0, 255, 198, 0.2);
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.06);
+    color: #D7EFFF;
 }

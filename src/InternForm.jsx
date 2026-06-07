@@ -51,7 +51,7 @@ function InternFrom() {
   return (
     <div id='TopContainer'>
       <div id="Navbar">
-        <h1>INTERN ADDING INTERN</h1>
+        <h1>Add New Intern</h1>
         <nav className="navbar navbar-expand-lg ">
           <div class="container-fluid">
 

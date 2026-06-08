@@ -1,44 +1,96 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import "./InternForm.css"
 import StudentDetail from './StudentDetail';
+import api from './axios api/Api';
 
 function InternFrom() {
   const [Id, setId] = useState(0);
   const [SendData, setSendData] = useState([])
   const [BUttonDisable, setButtonDisable] = useState(false)
   const [Photo, setPhoto] = useState(null);
-  const HandleLogin = (e) => {
-    const alreadyExists = SendData.some(
-      (student) => student.Email === FormData.Email
-    );
+  const [students, setStudents] = useState([])
+  const HandleLogin = async (e) => {
 
-    if (alreadyExists) {
+ e.preventDefault();
 
-      setButtonDisable(true);
 
-      alert("Student already exists!");
+    const DataFull = new FormData();
 
+  DataFull.append("FullName", formData.FullName);
+  DataFull.append("Email",formData.Email);
+  DataFull.append("phone",formData.phone);
+  DataFull.append("Qualification",formData.Qualification);
+  DataFull.append("role",formData.role);
+  DataFull.append("photo",Photo);
+    
+    try {
+      const res= await api.post("/api/register",DataFull);
+      alert(res.data.message);
+      console.log(res.data.Data);
+      FetchStudents();
+    } catch (error) {
+      
+alert(error.response?.data?.message || error.message ||
+        "Something went wrong");
+        console.log(error);
+      
     }
-    const NewData = ({ ...FormData, id: Id + 1, status: false, userphoto: Photo });
 
-    e.preventDefault();
-    setSendData([...SendData, NewData]);
-    setId(Id + 1);
+
+  }
+  const FetchStudents = async () => {
+  
+        try {
+  
+           const res = await api.get("/api/Details");
+           console.log(res.data);
+           setStudents(res.data.data);
+           
+  
+  
+        } catch (error) {
+           console.log(error);
+        }
+     }
+     useEffect(() => {
+        FetchStudents();
+     }, [])
+  
+
+     const DeleteIntern = async(id)=>{
+
+try {
+  const res=await api.delete(`/api/DeleteUser/${id}`)
+  alert(res.data.message);
+  console.log(res.data.Data);
+FetchStudents();
+
+} catch (error) {
+  console.log(error);
+}
+
+
+
+
+
+}
+  
+
+  const HandleToggle = async (id) => {
+   
+    try {
+      const res=await api.patch(`/api/UpdateUser/${id}`)
+      console.log(res.data.message);
+      console.log(res.data.data);
+      FetchStudents();
+    } catch (error) {
+      console.log(error);
+    }
+  
+    
   }
 
-
-  const DeleteIntern = (id) => {
-    const UpdatedData = SendData.filter((student) => student.id !== id);
-    setSendData(UpdatedData);
-  }
-
-  const HandleToggle = (id) => {
-    const NewData = SendData.map((student) => student.id === id ? { ...student, status: !student.status } : student);
-
-    setSendData(NewData);
-  }
-
-  const [FormData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     id: "",
     FullName: "",
     Email: "",
@@ -55,8 +107,8 @@ function InternFrom() {
         <nav className="navbar navbar-expand-lg ">
           <div class="container-fluid">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav">
@@ -85,32 +137,29 @@ function InternFrom() {
         </nav>
       </div>
       <div className='FromContainer'>
-        <form action="" onSubmit={HandleLogin}>
+        <form action="" onSubmit={HandleLogin} >
           <div id='PhotoContainer'>
-            <img id="ImageContainer" alt='profile' src={Photo? URL.createObjectURL(Photo):""} />
+            <img id="ImageContainer" alt='profile' src={Photo? URL.createObjectURL(Photo):null} />
           </div>
           <input type='file' className='ImageConatiner' accept='image/*' onChange={(e)=>setPhoto(e.target.files[0])}/>
           <label >FullName:&nbsp;</label>
-          <input type='text' placeholder='enter the name' className='InputConatiner' name='FullName' onChange={(text) => { setFormData({ ...FormData, [text.target.name]: text.target.value }) }} />
+          <input type='text' placeholder='enter the name' className='InputConatiner' name='FullName' onChange={(text) => { setFormData({ ...formData, [text.target.name]: text.target.value }) }} />
           <label>Email:&nbsp;</label>
-          <input name='Email' type='email' placeholder='enter email id' className='InputConatiner' onChange={(text) => { setFormData({ ...FormData, [text.target.name]: text.target.value }) }} />
+          <input name='Email' type='email' placeholder='enter email id' className='InputConatiner' onChange={(text) => { setFormData({ ...formData, [text.target.name]: text.target.value }) }} />
           <label >phone:&nbsp;</label>
-          <input name="phone" type='text' placeholder='enter phone no' className='InputConatiner' onChange={(text) => { setFormData({ ...FormData, [text.target.name]: text.target.value }) }} />
+          <input name="phone" type='text' placeholder='enter phone no' className='InputConatiner' onChange={(text) => { setFormData({ ...formData, [text.target.name]: text.target.value }) }} />
           <label >Qualification:&nbsp;</label>
-          <input name="Qualification" type="text" placeholder='enter your qualification' className='InputConatiner' onChange={(text) => { setFormData({ ...FormData, [text.target.name]: text.target.value }) }} />
+          <input name="Qualification" type="text" placeholder='enter your qualification' className='InputConatiner' onChange={(text) => { setFormData({ ...formData, [text.target.name]: text.target.value }) }} />
           <label>Role:</label>
-          <input name="role" type="text" placeholder='Enter role' className='InputConatiner' onChange={(text) => { setFormData({ ...FormData, [text.target.name]: text.target.value }) }} />
-          <button type='submit' id='Btn1' onClick={HandleLogin} disabled={BUttonDisable}>Add Member</button>
+          <input name="role" type="text" placeholder='Enter role' className='InputConatiner' onChange={(text) => { setFormData({ ...formData, [text.target.name]: text.target.value }) }} />
+          <button type='submit' id='Btn1'  >Add Member</button>
 
         </form>
 
       </div>
       <center><h1>INTERN DETAILS</h1></center>
       <div>
-        {SendData.length > 0 && (
-
-          <StudentDetail SendData={SendData} DeleteIntern={DeleteIntern} HandleToggle={HandleToggle} />
-        )}
+          <StudentDetail students={students} DeleteIntern={DeleteIntern} HandleToggle={HandleToggle} />
       </div>
     </div>
   )

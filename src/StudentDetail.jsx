@@ -1,8 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./StudentDetail.css"
+import api from './axios api/Api'
 
-function StudentDetail({ SendData, DeleteIntern, HandleToggle }) {
-   console.log(SendData);
+function StudentDetail({students , DeleteIntern ,HandleToggle}) {
+   
+
+   
+
+
+
+
+
+
+
 
 
    return (
@@ -10,13 +20,13 @@ function StudentDetail({ SendData, DeleteIntern, HandleToggle }) {
 
          {
 
-            SendData.map((student) => (
+            students.map((student,index) => (
 
 
-               <div className='DetailCard' key={student.id}>
-                  <h2> NO&nbsp;:&nbsp;{student.id}</h2>
+               <div className='DetailCard' key={student._id}>
+                  <h2> NO&nbsp;:&nbsp;{index+1}</h2>
                   <center><div id='PhotoContainer'>
-                     <img id='ImageContainer' alt='profile' src={student.userphoto ? URL.createObjectURL(student.userphoto):""} />
+                     <img id='ImageContainer' alt='profile' src={student.photo} />
                   </div></center>
                   <p className='pg'>Name : {student.FullName}</p>
                   <p className='pg'>Email : {student.Email}</p>
@@ -24,8 +34,8 @@ function StudentDetail({ SendData, DeleteIntern, HandleToggle }) {
                   <p className='pg'>Qualification : {student.Qualification}</p>
                   <p className='pg'>Role : {student.role}</p>
                   <div className='ButtonCotainer'>
-                     <button onClick={() => DeleteIntern(student.id)} className='btn'>DELETE</button>
-                     <button onClick={() => HandleToggle(student.id)} style={{ background: student.status ? "green" : "yellow" }} className='btn1'>{student.status ? "ACTIVE" : "INACTIVE"}</button>
+                     <button onClick={() => DeleteIntern(student._id)} className='btn'>DELETE</button>
+                     <button onClick={() => HandleToggle(student._id)} style={{ background: student.status ? "green" : "yellow" }} className='btn1'>{student.status ? "ACTIVE" : "INACTIVE"}</button>
                   </div>
                </div>
             ))}

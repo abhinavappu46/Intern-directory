@@ -24,7 +24,7 @@ function InternFrom() {
   DataFull.append("photo",Photo);
     
     try {
-      const res= await api.post("/api/register",DataFull);
+      const res= await api.post("/register",DataFull);
       alert(res.data.message);
       console.log(res.data.Data);
       FetchStudents();
@@ -42,7 +42,7 @@ alert(error.response?.data?.message || error.message ||
   
         try {
   
-           const res = await api.get("/api/Details");
+           const res = await api.get("/Details");
            console.log(res.data);
            setStudents(res.data.data);
            
@@ -60,7 +60,7 @@ alert(error.response?.data?.message || error.message ||
      const DeleteIntern = async(id)=>{
 
 try {
-  const res=await api.delete(`/api/DeleteUser/${id}`)
+  const res=await api.delete(`/DeleteUser/${id}`)
   alert(res.data.message);
   console.log(res.data.Data);
 FetchStudents();
@@ -79,7 +79,7 @@ FetchStudents();
   const HandleToggle = async (id) => {
    
     try {
-      const res=await api.patch(`/api/UpdateUser/${id}`)
+      const res=await api.patch(`/UpdateUser/${id}`)
       console.log(res.data.message);
       console.log(res.data.data);
       FetchStudents();
